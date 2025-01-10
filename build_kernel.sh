@@ -41,13 +41,13 @@ build_kernel(){
     make ${ARGS} a34x_defconfig a34.config
     make ${ARGS} menuconfig
     make ${ARGS} || exit 1
-    cp out/arch/arm64/boot/Image $(pwd)/arch/arm64/boot/Image
+    cp out/arch/arm64/boot/Image.gz $(pwd)/arch/arm64/boot/Image.gz
 }
 
 #build boot.img
 build_boot() {    
     rm -f ${RDIR}/AIK-Linux/split_img/boot.img-kernel ${RDIR}/AIK-Linux/boot.img
-    cp "${RDIR}/out/arch/arm64/boot/Image" ${RDIR}/AIK-Linux/split_img/boot.img-kernel
+    cp "${RDIR}/out/arch/arm64/boot/Image.gz" ${RDIR}/AIK-Linux/split_img/boot.img-kernel
     mkdir -p ${RDIR}/AIK-Linux/ramdisk/{debug_ramdisk,dev,metadata,mnt,proc,second_stage_resources,sys}
     cd ${RDIR}/AIK-Linux && ./repackimg.sh --nosudo && mv image-new.img ${RDIR}/build/boot.img
 }
