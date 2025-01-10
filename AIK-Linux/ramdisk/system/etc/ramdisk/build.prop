@@ -1,0 +1,23 @@
+####################################
+# from generate-common-build-props
+# These properties identify this partition image.
+####################################
+ro.product.bootimage.brand=samsung
+ro.product.bootimage.device=a34x
+ro.product.bootimage.manufacturer=samsung
+ro.product.bootimage.model=SM-A346E
+ro.product.bootimage.name=a34xdxx
+ro.bootimage.build.date=Tue Oct  1 13:18:30 KST 2024
+ro.bootimage.build.date.utc=1727756310
+ro.bootimage.build.fingerprint=samsung/a34xdxx/a34x:12/SP1A.210812.016/A346EXXS8CXIA:user/release-keys
+ro.bootimage.build.id=SP1A.210812.016
+ro.bootimage.build.tags=release-keys
+ro.bootimage.build.type=user
+ro.bootimage.build.version.incremental=A346EXXS8CXIA
+ro.bootimage.build.version.release=12
+ro.bootimage.build.version.release_or_codename=12
+ro.bootimage.build.version.sdk=31
+# Auto-added by post_process_props.py
+persist.sys.usb.config=mtp
+# end of file
+
