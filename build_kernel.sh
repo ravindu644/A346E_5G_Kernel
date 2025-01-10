@@ -44,4 +44,14 @@ build_kernel(){
     cp out/arch/arm64/boot/Image $(pwd)/arch/arm64/boot/Image
 }
 
+#build boot.img
+build_boot() {    
+    rm -f ${RDIR}/AIK-Linux/split_img/boot.img-kernel ${RDIR}/AIK-Linux/boot.img
+    cp "${RDIR}/out/arch/arm64/boot/Image" ${RDIR}/AIK-Linux/split_img/boot.img-kernel
+    mkdir -p ${RDIR}/AIK-Linux/ramdisk/{debug_ramdisk,dev,metadata,mnt,proc,second_stage_resources,sys}
+    cd ${RDIR}/AIK-Linux && ./repackimg.sh --nosudo && mv image-new.img ${RDIR}/build/boot.img
+    echo -e "\n[i] Build Finished..!\n" && cd ${RDIR}
+}
+
 build_kernel
+build_boot
