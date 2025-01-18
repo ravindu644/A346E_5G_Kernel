@@ -22,6 +22,13 @@ else
     rm -rf "${RDIR}/build" && mkdir -p "${RDIR}/build"
 fi
 
+#kernelversion
+if [ -z "$BUILD_KERNEL_VERSION" ]; then
+    export BUILD_KERNEL_VERSION="dev"
+fi
+#setting up localversion
+echo -e "CONFIG_LOCALVERSION_AUTO=n\nCONFIG_LOCALVERSION=\"-ravindu644-${BUILD_KERNEL_VERSION}\"\n" > "${RDIR}/arch/arm64/configs/version.config"
+
 #build options
 export ARGS="
 -C $(pwd) \
@@ -38,7 +45,7 @@ CONFIG_SECTION_MISMATCH_WARN_ONLY=y \
 #build kernel image
 build_kernel(){
     make ${ARGS} clean && make ${ARGS} mrproper
-    make ${ARGS} a34x_defconfig a34.config
+    make ${ARGS} a34x_defconfig a34.config version.config
     make ${ARGS} menuconfig
     make ${ARGS} || exit 1
     cp out/arch/arm64/boot/Image.gz $(pwd)/arch/arm64/boot/Image.gz
@@ -55,7 +62,7 @@ build_boot() {
 #build odin flashable tar
 build_tar(){
     cd ${RDIR}/build
-    tar -cvf "KernelSU-Next-SM-A346E.tar" boot.img && rm boot.img
+    tar -cvf "KernelSU-Next-SM-A346E-${BUILD_KERNEL_VERSION}.tar" boot.img && rm boot.img
     echo -e "\n[i] Build Finished..!\n" && cd ${RDIR}
 }
 
